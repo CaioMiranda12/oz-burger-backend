@@ -1,14 +1,14 @@
 import { prisma } from "@/config/prisma"
-import { createProductDTO } from "./product.types";
+import { createProductDTO, updateProductDTO } from "./product.types";
 
 
 export const productRepository = {
   async findAll() {
-    return await prisma.product.findMany();
+    return prisma.product.findMany();
   },
 
   async findById(id: string) {
-    const product = await prisma.product.findUnique({
+    const product = prisma.product.findUnique({
       where: {
         id,
       }
@@ -22,8 +22,8 @@ export const productRepository = {
   },
 
   async create(data: createProductDTO) {
-    return await prisma.product.create({
+    return prisma.product.create({
       data,
     })
-  }
+  },
 }
