@@ -5,3 +5,7 @@ export const createProductSchema = z.object({
   price: z.number().positive(),
   description: z.string().min(2),
 })
+
+export const updateProductSchema = createProductSchema.partial().extend({
+  available: z.boolean().optional(),
+})
