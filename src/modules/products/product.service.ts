@@ -1,24 +1,26 @@
+import { AppError } from "@/shared/errors/AppError";
 import { productRepository } from "./product.repository"
 import { createProductDTO } from "./product.types";
+import { StatusCodes } from "http-status-codes";
 
 
 export const productService = {
   async findAll() {
-    return productRepository.findAll();
+    return await productRepository.findAll();
   },
 
   async findById(id: string) {
-    const product = productRepository.findById(id);
+    const product = await productRepository.findById(id);
 
     if (!product) {
-      return;
+      throw new AppError('Product not found', StatusCodes.NOT_FOUND);
     }
 
     return product;
   },
 
   async create(data: createProductDTO) {
-    const product = productRepository.create(data);
+    const product = await productRepository.create(data);
 
     return product;
   },
