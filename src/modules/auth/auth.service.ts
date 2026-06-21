@@ -21,7 +21,7 @@ export const authService = {
       password: hashedPassword,
     });
 
-    const token = await jwtUtils.sign({
+    const token = jwtUtils.sign({
       id: user.id,
       role: user.role,
     })
