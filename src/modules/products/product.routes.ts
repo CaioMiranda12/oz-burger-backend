@@ -6,6 +6,13 @@ const productRoutes = Router();
 
 productRoutes.get('/', productController.findAllProducts);
 productRoutes.get('/:id', productController.findProductById);
-productRoutes.post('/', productController.createProduct);
+
+const adminRoutes = Router();
+// adicionar futuramente middleware de admin e de logado
+adminRoutes.post('/', productController.createProduct);
+adminRoutes.put('/:id', productController.updateProduct);
+adminRoutes.delete('/:id', productController.deleteProduct);
+
+productRoutes.use(adminRoutes);
 
 export { productRoutes };
