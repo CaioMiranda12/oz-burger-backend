@@ -1,5 +1,5 @@
 import { prisma } from "@/config/prisma"
-import { createProductDTO, updateProductDTO } from "./product.types";
+import { CreateProductDTO } from "./product.types";
 
 
 export const productRepository = {
@@ -8,20 +8,14 @@ export const productRepository = {
   },
 
   async findById(id: string) {
-    const product = prisma.product.findUnique({
+    return prisma.product.findUnique({
       where: {
         id,
       }
     })
-
-    if (!product) {
-      return;
-    }
-
-    return product;
   },
 
-  async create(data: createProductDTO) {
+  async create(data: CreateProductDTO) {
     return prisma.product.create({
       data,
     })
