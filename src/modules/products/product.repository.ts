@@ -1,5 +1,5 @@
 import { prisma } from "@/config/prisma"
-import { CreateProductDTO } from "./product.types";
+import { CreateProductDTO, UpdateProductDTO } from "./product.types";
 
 
 export const productRepository = {
@@ -18,6 +18,23 @@ export const productRepository = {
   async create(data: CreateProductDTO) {
     return prisma.product.create({
       data,
+    })
+  },
+
+  async update(id: string, data: UpdateProductDTO) {
+    return prisma.product.update({
+      where: {
+        id,
+      },
+      data,
+    })
+  },
+
+  async delete(id: string) {
+    return prisma.product.delete({
+      where: {
+        id,
+      }
     })
   },
 }

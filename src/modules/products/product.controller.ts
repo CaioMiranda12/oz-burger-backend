@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { productService } from "./product.service";
-import { createProductSchema } from "./product.schema";
+import { createProductSchema, updateProductSchema } from "./product.schema";
 import { StatusCodes } from "http-status-codes";
 
 export const productController = {
@@ -23,4 +23,20 @@ export const productController = {
 
     return res.status(StatusCodes.CREATED).json(product);
   },
+
+  async updateProduct(req: Request<{ id: string }>, res: Response) {
+    const validProductData = updateProductSchema.parse(req.body);
+    const productId = req.params.id;
+
+    const product = await productService.update(productId, validProductData);
+
+    return res.json(product);
+  },
+
+  async deleteProduct(req: Request<{ id: string }>, res: Response) {
+    const productId = req.params.id;
+    await productService.delete(productId);
+
+    return res.json({ message: "Product successfully deleted" })
+  }
 }

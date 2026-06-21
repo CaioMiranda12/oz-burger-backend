@@ -1,12 +1,12 @@
 import { AppError } from "@/shared/errors/AppError";
 import { productRepository } from "./product.repository"
-import { createProductDTO } from "./product.types";
+import { CreateProductDTO, UpdateProductDTO } from "./product.types";
 import { StatusCodes } from "http-status-codes";
 
 
 export const productService = {
   async findAll() {
-    return await productRepository.findAll();
+    return productRepository.findAll();
   },
 
   async findById(id: string) {
@@ -19,9 +19,19 @@ export const productService = {
     return product;
   },
 
-  async create(data: createProductDTO) {
-    const product = await productRepository.create(data);
-
-    return product;
+  async create(data: CreateProductDTO) {
+    return productRepository.create(data);
   },
+
+  async update(id: string, data: UpdateProductDTO) {
+    const product = await this.findById(id);
+
+    return productRepository.update(product.id, data);
+  },
+
+  async delete(id: string) {
+    const product = await this.findById(id);
+
+    return productRepository.delete(product.id);
+  }
 }
