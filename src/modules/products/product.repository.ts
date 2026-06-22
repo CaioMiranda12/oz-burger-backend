@@ -4,13 +4,20 @@ import { CreateProductDTO, UpdateProductDTO } from "./product.types";
 
 export const productRepository = {
   async findAll() {
-    return prisma.product.findMany();
+    return prisma.product.findMany({
+      include: {
+        category: true,
+      }
+    });
   },
 
   async findById(id: string) {
     return prisma.product.findUnique({
       where: {
         id,
+      },
+      include: {
+        category: true,
       }
     })
   },
@@ -18,6 +25,9 @@ export const productRepository = {
   async create(data: CreateProductDTO) {
     return prisma.product.create({
       data,
+      include: {
+        category: true,
+      }
     })
   },
 
@@ -27,6 +37,9 @@ export const productRepository = {
         id,
       },
       data,
+      include: {
+        category: true,
+      }
     })
   },
 
