@@ -1,5 +1,5 @@
-export interface createCategoryDTO {
+export interface CreateCategoryDTO {
   name: string;
 }
 
-export type updateCategoryDTO = Partial<createCategoryDTO>;
+export type UpdateCategoryDTO = Partial<CreateCategoryDTO>;
