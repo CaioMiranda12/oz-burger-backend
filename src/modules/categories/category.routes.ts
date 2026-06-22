@@ -7,7 +7,7 @@ const categoryRoutes = Router();
 
 categoryRoutes.get('/', categoryController.findAllCategories);
 categoryRoutes.get('/:id', categoryController.findCategoryById);
-categoryRoutes.get('/:name', categoryController.findCategoryByName);
+// categoryRoutes.get('/:name', categoryController.findCategoryByName);
 
 const adminRoutes = Router();
 adminRoutes.use(ensureAuthenticated, ensureRole('ADMIN'));

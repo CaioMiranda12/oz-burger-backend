@@ -18,12 +18,12 @@ export const categoryController = {
     return res.json(category);
   },
 
-  async findCategoryByName(req: Request<{ name: string }>, res: Response) {
-    const categoryName = req.params.name;
-    const category = await categoryService.findByName(categoryName);
+  // async findCategoryByName(req: Request<{ name: string }>, res: Response) {
+  //   const categoryName = req.params.name;
+  //   const category = await categoryService.findByName(categoryName);
 
-    return res.json(category);
-  },
+  //   return res.json(category);
+  // },
 
   async create(req: Request, res: Response) {
     const validCategoryData = createCategorySchema.parse(req.body);
