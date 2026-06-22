@@ -2,7 +2,7 @@ import { AppError } from "@/shared/errors/AppError";
 import { productRepository } from "./product.repository"
 import { CreateProductDTO, UpdateProductDTO } from "./product.types";
 import { StatusCodes } from "http-status-codes";
-
+import { categoryService } from "../categories/category.service";
 
 export const productService = {
   async findAll() {
@@ -20,11 +20,17 @@ export const productService = {
   },
 
   async create(data: CreateProductDTO) {
+    await categoryService.findById(data.categoryId);
+
     return productRepository.create(data);
   },
 
   async update(id: string, data: UpdateProductDTO) {
     const product = await this.findById(id);
+
+    if (data.categoryId) {
+      await categoryService.findById(data.categoryId);
+    }
 
     return productRepository.update(product.id, data);
   },
