@@ -35,4 +35,32 @@ export const authService = {
       token,
     }
   },
+
+  async login(email: string, password: string) {
+    const user = await userRepository.findByEmail(email);
+
+    if (!user) {
+      throw new AppError('Invalid credentials', StatusCodes.UNAUTHORIZED);
+    }
+
+    const validPassword = await hashUtils.compare(password, user.password);
+
+    if (!validPassword) {
+      throw new AppError('Invalid credentials', StatusCodes.UNAUTHORIZED);
+    }
+
+    const token = jwtUtils.sign({
+      id: user.id,
+      role: user.role,
+    })
+
+    return {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+      token,
+    }
+  }
 }
