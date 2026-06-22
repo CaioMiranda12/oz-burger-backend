@@ -1,7 +1,7 @@
 import { AppError } from "@/shared/errors/AppError";
 import { categoryRepository } from "./category.repository"
 import { StatusCodes } from "http-status-codes";
-import { createCategoryDTO, updateCategoryDTO } from "./category.types";
+import { CreateCategoryDTO, UpdateCategoryDTO } from "./category.types";
 
 export const categoryService = {
   async findAll() {
@@ -28,7 +28,7 @@ export const categoryService = {
     return category;
   },
 
-  async create(data: createCategoryDTO) {
+  async create(data: CreateCategoryDTO) {
     const categoryNameExists = await categoryRepository.findByName(data.name);
 
     if (categoryNameExists) {
@@ -38,7 +38,7 @@ export const categoryService = {
     return categoryRepository.create(data);
   },
 
-  async update(id: string, data: updateCategoryDTO) {
+  async update(id: string, data: UpdateCategoryDTO) {
     const category = await this.findById(id);
 
     if (data.name && data.name !== category.name) {
