@@ -18,8 +18,13 @@ export const productController = {
   },
 
   async createProduct(req: Request, res: Response) {
-    const validProductData = createProductSchema.parse(req.body);
-    const product = await productService.create(validProductData);
+    const { name, price, description, categoryId } = createProductSchema.parse(req.body);
+    const product = await productService.create({
+      name,
+      price,
+      description,
+      categoryId
+    });
 
     return res.status(StatusCodes.CREATED).json(product);
   },
