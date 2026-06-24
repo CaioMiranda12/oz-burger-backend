@@ -7,17 +7,22 @@ import { jwtUtils } from "@/shared/utils/jwt";
 
 
 export const authService = {
-  async register(data: createUserDTO) {
-    const userEmailExists = await userRepository.findByEmail(data.email);
+  async register({
+    name,
+    email,
+    password
+  }: createUserDTO) {
+    const userEmailExists = await userRepository.findByEmail(email);
 
     if (userEmailExists) {
       throw new AppError('Email already in use', StatusCodes.CONFLICT);
     }
 
-    const hashedPassword = await hashUtils.hash(data.password);
+    const hashedPassword = await hashUtils.hash(password);
 
     const user = await userRepository.create({
-      ...data,
+      name,
+      email,
       password: hashedPassword,
     });
 
