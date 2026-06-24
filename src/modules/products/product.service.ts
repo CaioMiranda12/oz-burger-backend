@@ -35,14 +35,29 @@ export const productService = {
     });
   },
 
-  async update(id: string, data: UpdateProductDTO) {
+  async update(
+    id: string,
+    {
+      name,
+      price,
+      description,
+      categoryId,
+      available
+    }: UpdateProductDTO
+  ) {
     const product = await this.findById(id);
 
-    if (data.categoryId) {
-      await categoryService.findById(data.categoryId);
+    if (categoryId) {
+      await categoryService.findById(categoryId);
     }
 
-    return productRepository.update(product.id, data);
+    return productRepository.update(product.id, {
+      name,
+      price,
+      description,
+      categoryId,
+      available
+    });
   },
 
   async delete(id: string) {
