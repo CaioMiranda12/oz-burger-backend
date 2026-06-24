@@ -30,10 +30,10 @@ export const productController = {
   },
 
   async updateProduct(req: Request<{ id: string }>, res: Response) {
-    const validProductData = updateProductSchema.parse(req.body);
+    const { name, price, description, categoryId, available } = updateProductSchema.parse(req.body);
     const productId = req.params.id;
 
-    const product = await productService.update(productId, validProductData);
+    const product = await productService.update(productId, { name, price, description, categoryId, available });
 
     return res.json(product);
   },
