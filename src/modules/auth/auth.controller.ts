@@ -6,9 +6,9 @@ import { authService } from "./auth.service";
 
 export const authController = {
   async registerUser(req: Request, res: Response) {
-    const validUserData = createUserSchema.parse(req.body);
+    const { name, email, password } = createUserSchema.parse(req.body);
 
-    const user = await authService.register(validUserData);
+    const user = await authService.register({ name, email, password });
 
     return res.status(StatusCodes.CREATED).json(user);
   },
