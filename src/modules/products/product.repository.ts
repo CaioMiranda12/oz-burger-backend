@@ -22,9 +22,19 @@ export const productRepository = {
     })
   },
 
-  async create(data: CreateProductDTO) {
+  async create({
+    name,
+    price,
+    description,
+    categoryId
+  }: CreateProductDTO) {
     return prisma.product.create({
-      data,
+      data: {
+        name,
+        price,
+        description,
+        categoryId,
+      },
       include: {
         category: true,
       }
