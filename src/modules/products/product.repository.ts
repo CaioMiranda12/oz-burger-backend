@@ -41,12 +41,24 @@ export const productRepository = {
     })
   },
 
-  async update(id: string, data: UpdateProductDTO) {
+  async update(id: string, {
+    name,
+    price,
+    description,
+    categoryId,
+    available
+  }: UpdateProductDTO) {
     return prisma.product.update({
       where: {
         id,
       },
-      data,
+      data: {
+        name,
+        price,
+        description,
+        categoryId,
+        available,
+      },
       include: {
         category: true,
       }
