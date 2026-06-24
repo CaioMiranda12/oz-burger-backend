@@ -23,18 +23,26 @@ export const categoryRepository = {
     })
   },
 
-  async create(data: CreateCategoryDTO) {
+  async create({
+    name
+  }: CreateCategoryDTO) {
     return prisma.category.create({
-      data,
+      data: {
+        name,
+      },
     })
   },
 
-  async update(id: string, data: UpdateCategoryDTO) {
+  async update(id: string, {
+    name,
+  }: UpdateCategoryDTO) {
     return prisma.category.update({
       where: {
         id,
       },
-      data,
+      data: {
+        name,
+      },
     })
   },
 
