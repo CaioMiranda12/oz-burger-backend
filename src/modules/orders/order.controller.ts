@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { orderService } from "./order.service";
 import { StatusCodes } from "http-status-codes";
-import { createOrderSchema } from "./order.schema";
+import { createOrderSchema, updateOrderStatusSchema } from "./order.schema";
 
 
 export const orderController = {
@@ -34,8 +34,9 @@ export const orderController = {
   },
 
   async update(req: Request<{ id: string }>, res: Response) {
+    const { status } = updateOrderStatusSchema.parse(req.body);
     const orderId = req.params.id;
-    const order = await orderService.update(orderId, req.body);
+    const order = await orderService.update(orderId, status);
 
     return res.json(order);
   }
