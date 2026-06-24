@@ -18,24 +18,17 @@ export const categoryController = {
     return res.json(category);
   },
 
-  // async findCategoryByName(req: Request<{ name: string }>, res: Response) {
-  //   const categoryName = req.params.name;
-  //   const category = await categoryService.findByName(categoryName);
-
-  //   return res.json(category);
-  // },
-
   async create(req: Request, res: Response) {
-    const validCategoryData = createCategorySchema.parse(req.body);
-    const category = await categoryService.create(validCategoryData);
+    const { name } = createCategorySchema.parse(req.body);
+    const category = await categoryService.create({ name });
 
     return res.status(StatusCodes.CREATED).json(category);
   },
 
   async update(req: Request<{ id: string }>, res: Response) {
-    const validCategoryData = updateCategorySchema.parse(req.body);
+    const { name } = updateCategorySchema.parse(req.body);
     const categoryId = req.params.id;
-    const category = await categoryService.update(categoryId, validCategoryData);
+    const category = await categoryService.update(categoryId, { name });
 
     return res.json(category);
   },
