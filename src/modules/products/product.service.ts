@@ -19,10 +19,20 @@ export const productService = {
     return product;
   },
 
-  async create(data: CreateProductDTO) {
-    await categoryService.findById(data.categoryId);
+  async create({
+    name,
+    price,
+    description,
+    categoryId
+  }: CreateProductDTO) {
+    await categoryService.findById(categoryId);
 
-    return productRepository.create(data);
+    return productRepository.create({
+      name,
+      price,
+      description,
+      categoryId
+    });
   },
 
   async update(id: string, data: UpdateProductDTO) {
