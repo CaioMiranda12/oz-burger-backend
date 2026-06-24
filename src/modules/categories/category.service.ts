@@ -28,28 +28,28 @@ export const categoryService = {
     return category;
   },
 
-  async create(data: CreateCategoryDTO) {
-    const categoryNameExists = await categoryRepository.findByName(data.name);
+  async create({ name }: CreateCategoryDTO) {
+    const categoryNameExists = await categoryRepository.findByName(name);
 
     if (categoryNameExists) {
       throw new AppError('Category with this name already exists', StatusCodes.CONFLICT);
     }
 
-    return categoryRepository.create(data);
+    return categoryRepository.create({ name });
   },
 
-  async update(id: string, data: UpdateCategoryDTO) {
+  async update(id: string, { name }: UpdateCategoryDTO) {
     const category = await this.findById(id);
 
-    if (data.name && data.name !== category.name) {
-      const categoryNameExists = await categoryRepository.findByName(data.name);
+    if (name && name !== category.name) {
+      const categoryNameExists = await categoryRepository.findByName(name);
 
       if (categoryNameExists) {
         throw new AppError('Category with this name already exists', StatusCodes.CONFLICT);
       }
     }
 
-    return categoryRepository.update(id, data);
+    return categoryRepository.update(id, { name });
   },
 
   async delete(id: string) {
