@@ -1,5 +1,6 @@
 import { authRoutes } from "@/modules/auth/auth.routes";
 import { categoryRoutes } from "@/modules/categories/category.routes";
+import { orderRoutes } from "@/modules/orders/order.routes";
 import { productRoutes } from "@/modules/products/product.routes";
 import { Request, Response, Router } from "express";
 
@@ -12,5 +13,6 @@ routes.get('/', (req: Request, res: Response) => {
 routes.use('/products', productRoutes);
 routes.use('/auth', authRoutes);
 routes.use('/categories', categoryRoutes);
+routes.use('/orders', orderRoutes);
 
 export { routes };
