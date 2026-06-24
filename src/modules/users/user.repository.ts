@@ -18,9 +18,17 @@ export const userRepository = {
     })
   },
 
-  async create(data: createUserDTO) {
+  async create({
+    name,
+    email,
+    password
+  }: createUserDTO) {
     return prisma.user.create({
-      data,
+      data: {
+        name,
+        email,
+        password
+      },
     })
   },
 }
